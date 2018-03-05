@@ -22,22 +22,24 @@ libmm-vidc-def += -D_ANDROID_ICS_
 
 libmm-vidc-inc      := $(LOCAL_PATH)/inc
 libmm-vidc-inc      += $(TOP)/hardware/qcom/media/mm-core/inc
-libmm-vidc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-vidc-inc      += $(TOP)/hardware/qcom/media/libc2dcolorconvert
 libmm-vidc-inc      += $(TOP)/frameworks/av/include/media/stagefright
 
 LOCAL_MODULE                    := libOmxVidcCommon
+LOCAL_HEADER_LIBRARIES		:= display_headers libhardware_headers libutils_headers
 LOCAL_MODULE_TAGS               := optional
 LOCAL_CFLAGS                    := $(libmm-vidc-def)
 LOCAL_C_INCLUDES                := $(libmm-vidc-inc)
 
-LOCAL_HEADER_LIBRARIES := generated_kernel_headers
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 
 LOCAL_PRELINK_MODULE      := false
 LOCAL_SHARED_LIBRARIES    := liblog libutils libcutils libdl libhardware
 
 LOCAL_SRC_FILES   := src/extra_data_handler.cpp
 LOCAL_SRC_FILES   += src/vidc_color_converter.cpp
+
+LOCAL_HEADER_LIBRARIES := libhardware_headers libutils_headers
 
 include $(BUILD_STATIC_LIBRARY)
 

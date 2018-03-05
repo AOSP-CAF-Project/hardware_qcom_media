@@ -30,14 +30,18 @@ ifeq ($(TARGET_USES_MEDIA_EXTENSIONS),true)
 LOCAL_CFLAGS += -DUSE_NATIVE_HANDLE_SOURCE
 endif
 
+LOCAL_HEADER_LIBRARIES := \
+        media_plugin_headers \
+        libcutils_headers \
+        libutils_headers
+
+LOCAL_C_INCLUDES:= $(TARGET_OUT_HEADERS)/mm-core/omxcore/
+
 LOCAL_SHARED_LIBRARIES :=       \
         libutils                \
         libcutils               \
         libdl                   \
         libnativewindow         \
-
-LOCAL_HEADER_LIBRARIES :=       \
-        media_plugin_headers    \
 
 LOCAL_MODULE := libstagefrighthw
 
