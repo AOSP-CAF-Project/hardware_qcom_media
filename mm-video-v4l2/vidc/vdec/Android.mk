@@ -116,7 +116,7 @@ LOCAL_SHARED_LIBRARIES  := liblog libutils libui libcutils libdl
 
 LOCAL_SHARED_LIBRARIES  += libqdMetaData
 
-LOCAL_HEADER_LIBRARIES  := libnativebase_headers
+LOCAL_HEADER_LIBRARIES  := libnativebase_headers media_plugin_headers
 
 LOCAL_SRC_FILES         := src/frameparser.cpp
 LOCAL_SRC_FILES         += src/h264_utils.cpp
