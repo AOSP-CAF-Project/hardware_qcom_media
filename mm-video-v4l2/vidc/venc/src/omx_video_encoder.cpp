@@ -248,8 +248,25 @@ OMX_ERRORTYPE omx_venc::component_init(OMX_STRING role)
         codec_type = OMX_VIDEO_CodingHEVC;
     } else if (!strncmp((char *)m_nkind, "OMX.qcom.video.encoder.heic",    \
                 OMX_MAX_STRINGNAME_SIZE)) {
-        strlcpy((char *)m_cRole, "video_encoder.hevc", OMX_MAX_STRINGNAME_SIZE);
-        codec_type = OMX_VIDEO_CodingImageHEIC;
+        char platform_name[PROP_VALUE_MAX] = {0};
+        char version[PROP_VALUE_MAX] = {0};
+        property_get("ro.board.platform", platform_name, "0");  //HW ID
+        if (!strcmp(platform_name, "sm6150"))
+        {
+            if (property_get("vendor.media.target.version", version, "0") &&
+                    (atoi(version) == 0))
+            {
+                //Sku version, HEIC is disabled on this target
+                DEBUG_PRINT_ERROR("heic encoder not supported on this target");
+                eRet = OMX_ErrorInvalidComponentName;
+            } else {
+                strlcpy((char *)m_cRole, "video_encoder.hevc", OMX_MAX_STRINGNAME_SIZE);
+                codec_type = OMX_VIDEO_CodingImageHEIC;
+            }
+        } else {
+            strlcpy((char *)m_cRole, "video_encoder.hevc", OMX_MAX_STRINGNAME_SIZE);
+            codec_type = OMX_VIDEO_CodingImageHEIC;
+        }
     } else if (!strncmp((char *)m_nkind, "OMX.qcom.video.encoder.hevc.secure",    \
                 OMX_MAX_STRINGNAME_SIZE)) {
         strlcpy((char *)m_cRole, "video_encoder.hevc", OMX_MAX_STRINGNAME_SIZE);
@@ -272,6 +289,11 @@ OMX_ERRORTYPE omx_venc::component_init(OMX_STRING role)
                 DEBUG_PRINT_LOW("TME is not supported");
                 eRet = OMX_ErrorInvalidComponentName;
             }
+        }
+        else if (!strcmp(platform_name, "atoll")) {
+            //TME is enabled on ATOLL
+            strlcpy((char *)m_cRole, "video_encoder.tme", OMX_MAX_STRINGNAME_SIZE);
+            codec_type = (OMX_VIDEO_CODINGTYPE)QOMX_VIDEO_CodingTME;
         }
         else {
             DEBUG_PRINT_LOW("TME is not supported");
@@ -479,6 +501,7 @@ OMX_ERRORTYPE omx_venc::component_init(OMX_STRING role)
                 &m_sOutPortDef.nBufferSize,
                 m_sOutPortDef.nPortIndex) != true) {
         eRet = OMX_ErrorUndefined;
+        goto init_error;
     }
 
     // Initialize the video color format for input port
@@ -551,6 +574,10 @@ OMX_ERRORTYPE omx_venc::component_init(OMX_STRING role)
     m_sParamVP8.eLevel = OMX_VIDEO_VP8Level_Version0;
     m_sParamVP8.nDCTPartitions = 0;
     m_sParamVP8.bErrorResilientMode = OMX_FALSE;
+
+    OMX_INIT_STRUCT(&m_sParamVP8Encoder,OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE);
+    m_sParamVP8Encoder.nPortIndex = (OMX_U32) PORT_INDEX_OUT;
+    m_sParamVP8Encoder.nKeyFrameInterval = 30;
 
     // HEVC specific init
     OMX_INIT_STRUCT(&m_sParamHEVC, OMX_VIDEO_PARAM_HEVCTYPE);
@@ -971,7 +998,21 @@ OMX_ERRORTYPE  omx_venc::set_parameter(OMX_IN OMX_HANDLETYPE     hComp,
                 memcpy(&m_sParamVP8,pParam, sizeof(struct OMX_VIDEO_PARAM_VP8TYPE));
                 break;
             }
-        case (OMX_INDEXTYPE)OMX_IndexParamVideoHevc:
+        case (OMX_INDEXTYPE)OMX_IndexParamVideoAndroidVp8Encoder:
+            {
+                VALIDATE_OMX_PARAM_DATA(paramData, OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE);
+                OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE* pParam = (OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE*)paramData;
+                OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE vp8_param;
+                DEBUG_PRINT_LOW("set_parameter: OMX_IndexParamVideoAndroidVp8Encoder");
+
+                memcpy(&vp8_param, pParam, sizeof( struct OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE));
+                if (handle->venc_set_param(&vp8_param, (OMX_INDEXTYPE)OMX_IndexParamVideoAndroidVp8Encoder) != true) {
+                    return OMX_ErrorUnsupportedSetting;
+                }
+                memcpy(&m_sParamVP8Encoder, &vp8_param, sizeof(struct OMX_VIDEO_PARAM_ANDROID_VP8ENCODERTYPE));
+                break;
+            }
+            case (OMX_INDEXTYPE)OMX_IndexParamVideoHevc:
             {
                 VALIDATE_OMX_PARAM_DATA(paramData, OMX_VIDEO_PARAM_HEVCTYPE);
                 OMX_VIDEO_PARAM_HEVCTYPE* pParam = (OMX_VIDEO_PARAM_HEVCTYPE*)paramData;
