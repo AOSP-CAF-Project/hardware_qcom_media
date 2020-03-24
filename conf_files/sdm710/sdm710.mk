@@ -1,4 +1,4 @@
-CONFIG_PATH := hardware/qcom/media/conf_files/sdm710
+CONFIG_PATH := $(QCOM_MEDIA_ROOT)/conf_files/sdm710
 
 # Video feature flags
 

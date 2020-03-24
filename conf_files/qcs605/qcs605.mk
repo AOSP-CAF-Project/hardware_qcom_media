@@ -1,4 +1,4 @@
-CONFIG_PATH := hardware/qcom/media/conf_files/qcs605
+CONFIG_PATH := $(QCOM_MEDIA_ROOT)/conf_files/qcs605
 
 # Video feature flags
 
