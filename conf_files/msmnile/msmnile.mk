@@ -1,4 +1,4 @@
-CONFIG_PATH := hardware/qcom/media/conf_files/msmnile
+CONFIG_PATH := $(QCOM_MEDIA_ROOT)/conf_files/msmnile
 
 # Video feature flags
 
@@ -21,7 +21,7 @@ PRODUCT_PACKAGES += \
     libcodec2_hidl@1.0.vendor
 # Enable Codec2.0 HAL for pure AOSP variants.
 ifeq ($(GENERIC_ODM_IMAGE),true)
-DEVICE_MANIFEST_FILE += hardware/qcom/media/conf_files/msmnile/c2_manifest_vendor.xml
+DEVICE_MANIFEST_FILE += $(QCOM_MEDIA_ROOT)/conf_files/msmnile/c2_manifest_vendor.xml
 else
-DEVICE_MANIFEST_FILE += hardware/qcom/media/conf_files/msmnile/c2_manifest.xml
+DEVICE_MANIFEST_FILE += $(QCOM_MEDIA_ROOT)/conf_files/msmnile/c2_manifest.xml
 endif

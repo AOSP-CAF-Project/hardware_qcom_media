@@ -1,4 +1,4 @@
-CONFIG_PATH := hardware/qcom/media/conf_files/$(MSMSTEPPE)
+CONFIG_PATH := $(QCOM_MEDIA_ROOT)/conf_files/$(MSMSTEPPE)
 
 # Video feature flags
 
@@ -46,4 +46,4 @@ else
 endif
 
 # Enable Codec2.0 HAL for pure AOSP variants.
-DEVICE_MANIFEST_FILE += hardware/qcom/media/conf_files/$(MSMSTEPPE)/c2_manifest.xml
+DEVICE_MANIFEST_FILE += $(QCOM_MEDIA_ROOT)/conf_files/$(MSMSTEPPE)/c2_manifest.xml
