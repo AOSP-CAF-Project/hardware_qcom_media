@@ -1,4 +1,4 @@
-CONFIG_PATH := hardware/qcom/media/conf_files/$(TRINKET)
+CONFIG_PATH := $(QCOM_MEDIA_ROOT)/conf_files/$(TRINKET)
 
 # Video feature flags
 
