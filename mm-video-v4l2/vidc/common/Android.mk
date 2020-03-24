@@ -25,9 +25,9 @@ libmm-vidc-add-dep  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 # ---------------------------------------------------------------------------------
 
 libmm-vidc-inc      := $(LOCAL_PATH)/inc
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media-caf/msm8916/mm-core/inc
+libmm-vidc-inc      += $(TOP)/$(QCOM_MEDIA_ROOT)/mm-core/inc
 libmm-vidc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media-caf/msm8916/libc2dcolorconvert
+libmm-vidc-inc      += $(TOP)/$(QCOM_MEDIA_ROOT)/libc2dcolorconvert
 libmm-vidc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 
 LOCAL_ADDITIONAL_DEPENDENCIES   := $(libmm-vidc-add-dep)
