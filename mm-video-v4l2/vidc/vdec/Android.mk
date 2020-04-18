@@ -64,7 +64,6 @@ libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/adreno
 libmm-vdec-inc          += $(TOP)/frameworks/native/include/media/openmax
 libmm-vdec-inc          += $(TOP)/frameworks/native/include/media/hardware
 libmm-vdec-inc          += $(TOP)/frameworks/native/libs/nativewindow/include
-libmm-vdec-inc          += hardware/qcom/display-caf/msm8916/libgralloc
 libmm-vdec-inc          += $(TOP)/frameworks/native/libs/arect/include
 libmm-vdec-inc          += $(TOP)/frameworks/native/libs/nativebase/include
 libmm-vdec-inc      	+= $(TOP)/hardware/qcom/media-caf/msm8916/libc2dcolorconvert

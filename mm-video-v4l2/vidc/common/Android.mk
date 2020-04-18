@@ -29,7 +29,6 @@ libmm-vidc-inc      += $(TOP)/hardware/qcom/media-caf/msm8916/mm-core/inc
 libmm-vidc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-vidc-inc      += $(TOP)/hardware/qcom/media-caf/msm8916/libc2dcolorconvert
 libmm-vidc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
-libmm-vidc-inc      += hardware/qcom/display-caf/msm8916/libgralloc
 
 LOCAL_ADDITIONAL_DEPENDENCIES   := $(libmm-vidc-add-dep)
 
@@ -46,8 +45,6 @@ LOCAL_SHARED_LIBRARIES    := liblog libcutils libdl
 
 LOCAL_SRC_FILES   := src/extra_data_handler.cpp
 LOCAL_SRC_FILES   += src/vidc_color_converter.cpp
-
-LOCAL_HEADER_LIBRARIES := libhardware_headers libutils_headers
 
 include $(BUILD_STATIC_LIBRARY)
 
