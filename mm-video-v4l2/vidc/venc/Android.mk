@@ -122,6 +122,7 @@ LOCAL_VENDOR_MODULE             := true
 LOCAL_CFLAGS                    := $(libmm-venc-def)
 LOCAL_HEADER_LIBRARIES := \
         media_plugin_headers \
+	copybit_headers \
         libnativebase_headers \
         libutils_headers \
         libhardware_headers
