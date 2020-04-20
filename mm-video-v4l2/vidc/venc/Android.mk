@@ -106,7 +106,6 @@ libmm-venc-inc      := $(LOCAL_PATH)/inc
 libmm-venc-inc      += $(TOP)/$(QCOM_MEDIA_ROOT)/mm-video-v4l2/vidc/common/inc
 libmm-venc-inc      += $(QCOM_MEDIA_ROOT)/mm-core/inc
 libmm-venc-inc      += $(QCOM_MEDIA_ROOT)/libstagefrighthw
-libmm-venc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/adreno
 libmm-venc-inc      += $(QCOM_MEDIA_ROOT)/libc2dcolorconvert
 libmm-venc-inc      += $(QCOM_MEDIA_ROOT)/hypv-intercept
@@ -140,6 +139,7 @@ LOCAL_CFLAGS                    := $(libmm-venc-def)
 
 LOCAL_HEADER_LIBRARIES := \
         media_plugin_headers \
+	display_headers \
         libnativebase_headers \
         libcutils_headers \
         libutils_headers \
