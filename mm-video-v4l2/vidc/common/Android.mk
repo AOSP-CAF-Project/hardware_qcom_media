@@ -25,7 +25,7 @@ endif
 # ---------------------------------------------------------------------------------
 
 libmm-vidc-inc      := $(LOCAL_PATH)/inc
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media/mm-core/inc
+ibmm-vidc-inc      += $(TOP)/hardware/qcom/media/mm-core/inc
 libmm-vidc-inc      += $(TOP)/hardware/qcom/media/libc2dcolorconvert
 libmm-vidc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 libmm-vidc-inc      += $(LIBION_HEADER_PATHS)
